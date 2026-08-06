@@ -53,6 +53,7 @@ CATEGORY_LABELS = {
 
 TITLE_CARD_DUR = 1.3
 BRAND_NAME = "BRASIL DIGITAL"
+SITE_FOOTER_TEXT = "radiofalabrasil.com   •   falabrasil.digital"
 
 
 def _font(path, size):
@@ -72,19 +73,23 @@ def _gradient(draw, top, bot):
 
 
 def _wrap_text(text, font, max_width, draw):
-    words = text.split()
-    lines, current = [], []
-    for word in words:
-        test = " ".join(current + [word])
-        bbox = draw.textbbox((0, 0), test, font=font)
-        if bbox[2] - bbox[0] <= max_width:
-            current.append(word)
-        else:
-            if current:
-                lines.append(" ".join(current))
-            current = [word]
-    if current:
-        lines.append(" ".join(current))
+    lines = []
+    for paragraph in text.split("\n"):
+        words = paragraph.split()
+        current = []
+        for word in words:
+            test = " ".join(current + [word])
+            bbox = draw.textbbox((0, 0), test, font=font)
+            if bbox[2] - bbox[0] <= max_width:
+                current.append(word)
+            else:
+                if current:
+                    lines.append(" ".join(current))
+                current = [word]
+        if current:
+            lines.append(" ".join(current))
+        elif not words:
+            lines.append("")
     return lines
 
 
@@ -106,6 +111,23 @@ def _watermark(img, draw, logo_path, opacity=0.18, size_frac=0.72, y_offset=-40)
         draw = ImageDraw.Draw(img)
     except Exception:
         pass
+    return img, draw
+
+
+def _draw_site_footer(img, draw, center_y):
+    """Rodapé com os sites da Rádio Fala Brasil e do App Fala Brasil,
+    em destaque (fundo escuro + texto amarelo) para ficar legível sobre
+    qualquer gradiente/imagem de fundo.
+    """
+    f = _font(FONT_BOLD, 34)
+    tb = draw.textbbox((0, 0), SITE_FOOTER_TEXT, font=f)
+    tw, th = tb[2] - tb[0], tb[3] - tb[1]
+    pad_x, pad_y = 26, 16
+    draw.rounded_rectangle(
+        [(W // 2 - tw // 2 - pad_x, center_y - th // 2 - pad_y),
+         (W // 2 + tw // 2 + pad_x, center_y + th // 2 + pad_y)],
+        radius=18, fill=(0, 0, 0))
+    draw.text((W // 2, center_y), SITE_FOOTER_TEXT, font=f, fill=YELLOW, anchor="mm")
     return img, draw
 
 
@@ -159,6 +181,8 @@ def _make_slide(slide_text, slide_num, total_slides, category, subject, logo_pat
         draw.text((W // 2 + 2, y + 2), line, font=font_main, fill=(0, 0, 0), anchor="mm")
         color = YELLOW if is_cta else WHITE
         draw.text((W // 2, y), line, font=font_main, fill=color, anchor="mm")
+
+    img, draw = _draw_site_footer(img, draw, H - 105)
 
     dot_r, dot_gap = 10, 35
     total_w = total_slides * (2 * dot_r) + (total_slides - 1) * (dot_gap - 2 * dot_r)
@@ -249,9 +273,11 @@ def _make_title_card(category, subject, hook, logo_path):
                       fill=YELLOW, anchor="mm", stroke_width=4, stroke_fill=(0, 0, 0))
 
     f_cta = _font(FONT_BOLD, 40)
-    draw.text((W // 2, H - 140), "NOTÍCIA VERIFICADA",
+    draw.text((W // 2, H - 160), "NOTÍCIA VERIFICADA",
               font=f_cta, fill=WHITE, anchor="mm",
               stroke_width=3, stroke_fill=(0, 0, 0))
+
+    img, draw = _draw_site_footer(img, draw, H - 75)
 
     return img
 
