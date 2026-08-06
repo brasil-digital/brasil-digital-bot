@@ -1,0 +1,51 @@
+name: Brasil Digital — Postar Short
+
+on:
+  schedule:
+    - cron: '0 9 * * *'   # 06h BRT (9h UTC)
+    - cron: '0 21 * * *'  # 18h BRT (21h UTC)
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Instalar ffmpeg e fontes
+        run: sudo apt-get install -y ffmpeg fonts-liberation
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Cache pip
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: pip-${{ hashFiles('requirements.txt') }}
+
+      - name: Instalar dependências
+        run: pip install -r requirements.txt
+
+      - name: Gerar e publicar Short
+        run: python src/main.py
+        env:
+          ANTHROPIC_API_KEY:     ${{ secrets.ANTHROPIC_API_KEY }}
+          OPENAI_API_KEY:        ${{ secrets.OPENAI_API_KEY }}
+          YOUTUBE_CLIENT_ID:     ${{ secrets.YOUTUBE_CLIENT_ID }}
+          YOUTUBE_CLIENT_SECRET: ${{ secrets.YOUTUBE_CLIENT_SECRET }}
+          YOUTUBE_REFRESH_TOKEN: ${{ secrets.YOUTUBE_REFRESH_TOKEN }}
+
+      - name: Salvar histórico de notícias já publicadas
+        run: |
+          git config user.name "brasil-digital-bot"
+          git config user.email "actions@github.com"
+          git add data/posted_links.json
+          git diff --cached --quiet || git commit -m "Atualiza histórico de notícias publicadas"
+          git push
