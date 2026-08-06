@@ -5,6 +5,7 @@ Canal sério: o conteúdo final (content_generator.py) é obrigado a se basear
 SOMENTE no texto retornado por essas fontes, nunca a inventar.
 """
 import datetime
+import html
 import re
 
 import feedparser
@@ -37,6 +38,7 @@ NOISE_PATTERNS = re.compile(
 
 def _clean_html(text: str) -> str:
     text = re.sub(r"<[^>]+>", " ", text or "")
+    text = html.unescape(text)
     text = re.sub(r"\s+", " ", text).strip()
     return text
 
