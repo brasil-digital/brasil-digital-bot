@@ -13,6 +13,47 @@ from youtube_uploader import upload_video
 LOGO_PATH = os.path.join(os.path.dirname(__file__), "..", "assets", "logo.png")
 
 
+def _publish_manual(path: str):
+    """Publica um roteiro JÁ ESCRITO (data/manual/*.json), pulando RSS e Claude.
+
+    O JSON segue o mesmo formato que content_generator.generate_content devolve
+    (category, subject, hook, slides, narration_script, youtube_title,
+    youtube_description, tags, source, source_link). A fonte continua sendo
+    citada na descrição — a regra de zero achômetro vale do mesmo jeito.
+    """
+    with open(path, encoding="utf-8") as f:
+        content = json.load(f)
+    for key in ("slides", "narration_script", "youtube_title", "youtube_description", "source", "source_link"):
+        if not content.get(key):
+            raise Exception(f"Roteiro manual sem o campo obrigatório '{key}': {path}")
+
+    if content["source_link"] in load_used_links():
+        raise Exception(f"Esse roteiro já foi publicado (link no histórico): {content['source_link']}")
+
+    print(f"📝 Roteiro manual: {path}")
+    print(f"   Fonte : {content['source']} — {content['source_link']}")
+    print(f"   Título: {content['youtube_title']}
+")
+
+    print("🎙️  Gerando narração...")
+    audio_path = generate_narration(content["narration_script"], "/tmp/bd_narration.mp3")
+
+    print("
+🎬 Criando YouTube Short...")
+    logo = LOGO_PATH if os.path.exists(LOGO_PATH) else None
+    video_path = create_video(content, "/tmp/bd_video.mp4", logo_path=logo, audio_path=audio_path)
+
+    print("
+📤 Publicando no YouTube...")
+    result = upload_video(video_path, content)
+    save_used_link(content["source_link"])
+
+    print(f"
+🎉 Short publicado!")
+    print(f"   Título: {content['youtube_title']}")
+    print(f"   URL   : {result['url']}")
+
+
 def main():
     print("🇧🇷 Brasil Digital Bot — Iniciando...\n")
 
