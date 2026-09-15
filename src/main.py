@@ -1,3 +1,4 @@
+import json
 import os
 import sys
 import traceback
@@ -16,6 +17,11 @@ def main():
     print("🇧🇷 Brasil Digital Bot — Iniciando...\n")
 
     try:
+        manual_path = sys.argv[1] if len(sys.argv) > 1 else os.environ.get("MANUAL_JSON", "").strip()
+        if manual_path:
+            _publish_manual(manual_path)
+            return
+
         print("📡 Buscando notícias reais e recentes de Tecnologia/IA...")
         candidates = fetch_candidates()
         print(f"   {len(candidates)} notícias candidatas encontradas nas fontes.")
