@@ -32,24 +32,20 @@ def _publish_manual(path: str):
 
     print(f"📝 Roteiro manual: {path}")
     print(f"   Fonte : {content['source']} — {content['source_link']}")
-    print(f"   Título: {content['youtube_title']}
-")
+    print(f"   Título: {content['youtube_title']}\n")
 
     print("🎙️  Gerando narração...")
     audio_path = generate_narration(content["narration_script"], "/tmp/bd_narration.mp3")
 
-    print("
-🎬 Criando YouTube Short...")
+    print("\n🎬 Criando YouTube Short...")
     logo = LOGO_PATH if os.path.exists(LOGO_PATH) else None
     video_path = create_video(content, "/tmp/bd_video.mp4", logo_path=logo, audio_path=audio_path)
 
-    print("
-📤 Publicando no YouTube...")
+    print("\n📤 Publicando no YouTube...")
     result = upload_video(video_path, content)
     save_used_link(content["source_link"])
 
-    print(f"
-🎉 Short publicado!")
+    print("\n🎉 Short publicado!")
     print(f"   Título: {content['youtube_title']}")
     print(f"   URL   : {result['url']}")
 
