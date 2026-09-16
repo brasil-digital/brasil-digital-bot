@@ -32,11 +32,13 @@ Publicado: {article.get('published') or 'recentemente'}
 
 Tarefa: adapte essa notícia real para um roteiro de YouTube Short vertical (~40-55 segundos), traduzindo pro português brasileiro num tom de apresentador de telejornal de tecnologia — sério, direto, sem sensacionalismo e sem opinião pessoal.
 
+GANCHO DOS PRIMEIROS 2 SEGUNDOS (crítico pro Short não ser pulado): identifique o detalhe MAIS surpreendente ou consequente da notícia — não o mais óbvio — e abra com ele em forma de afirmação de impacto ou pergunta direta. Isso é reordenar informação real, não inventar nada. Evite aberturas fracas e genéricas como "Nesta semana...", "Segundo uma nova pesquisa...", "A empresa X anunciou que..." — vá direto no fato que mais importa. O "hook" e a PRIMEIRA FRASE do "narration_script" devem transmitir esse mesmo gancho (podem usar palavras um pouco diferentes, mas o mesmo impacto), porque o espectador ouve a narração ao mesmo tempo em que vê o hook na tela.
+
 Responda APENAS com JSON válido, sem markdown, seguindo exatamente este formato:
 {{
   "category": "uma destas categorias: ia, big-techs, ciberseguranca, mercado-tech, ciencia",
   "subject": "assunto principal em poucas palavras (ex: 'OpenAI', 'Nova lei de IA na UE')",
-  "hook": "chamada curta que resume a notícia (máx 90 caracteres)",
+  "hook": "gancho de impacto com o fato mais surpreendente da notícia, afirmação forte ou pergunta direta (máx 90 caracteres) — não um resumo neutro",
   "slides": [
     {{"text": "slide 1 — manchete/hook (máx 80 caracteres)"}},
     {{"text": "slide 2 — fato principal da notícia (máx 100 caracteres)"}},
@@ -44,7 +46,7 @@ Responda APENAS com JSON válido, sem markdown, seguindo exatamente este formato
     {{"text": "slide 4 — por que isso importa (máx 100 caracteres)"}},
     {{"text": "Fonte: {article['source']}\\nBrasil Digital"}}
   ],
-  "narration_script": "roteiro COMPLETO para narração em voz masculina séria, português brasileiro natural, 70 a 100 palavras (~45s falados), tom de apresentador de telejornal de tecnologia. SEM inventar fatos além da fonte fornecida. SEM indicações de cena ou colchetes — só o texto narrado.",
+  "narration_script": "roteiro COMPLETO para narração em voz masculina séria, português brasileiro natural, 70 a 100 palavras (~45s falados), tom de apresentador de telejornal de tecnologia. A PRIMEIRA FRASE precisa ser o mesmo gancho de impacto do campo 'hook' (mesmo fato surpreendente em destaque), só depois vem o contexto/explicação. SEM inventar fatos além da fonte fornecida. SEM indicações de cena ou colchetes — só o texto narrado.",
   "youtube_title": "título objetivo pro Short (máx 90 caracteres, sem clickbait exagerado, sem emojis em excesso)",
   "youtube_description": "descrição com 2 parágrafos curtos resumindo a notícia + uma linha 'Fonte: {article['source']} — {article['link']}' + 6 a 8 hashtags relevantes",
   "tags": ["tecnologia", "shorts", "...mais 8 tags relevantes ao tema específico da notícia"]
