@@ -5,12 +5,14 @@ import traceback
 
 from news_fetcher import fetch_candidates, pick_unused
 from history import load_used_links, save_used_link
-from content_generator import generate_content
+from content_generator import generate_content, pick_most_engaging
 from narration import generate_narration
 from video_creator import create_video
 from youtube_uploader import upload_video
 
 LOGO_PATH = os.path.join(os.path.dirname(__file__), "..", "assets", "logo.png")
+QUEUE_DIR = os.path.join(os.path.dirname(__file__), "..", "data", "fila")
+MANUAL_DIR = os.path.join(os.path.dirname(__file__), "..", "data", "manual")
 
 
 def _publish_manual(path: str):
@@ -50,10 +52,37 @@ def _publish_manual(path: str):
     print(f"   URL   : {result['url']}")
 
 
+def _publish_next_from_queue():
+    """Publica o próximo roteiro de data/fila/ (ordem alfabética) e move pra data/manual/.
+
+    Usado pelo horário extra do dia: 1 pauta forte escrita à mão por vez.
+    Fila vazia não é erro — só não publica nada nesse horário.
+    """
+    used = load_used_links()
+    queue = sorted(f for f in os.listdir(QUEUE_DIR) if f.endswith(".json")) if os.path.isdir(QUEUE_DIR) else []
+    for name in queue:
+        path = os.path.join(QUEUE_DIR, name)
+        with open(path, encoding="utf-8") as f:
+            link = json.load(f).get("source_link")
+        done_path = os.path.join(MANUAL_DIR, name)
+        if link in used:
+            print(f"⏭️  {name} já publicado antes — tirando da fila.")
+            os.replace(path, done_path)
+            continue
+        _publish_manual(path)
+        os.replace(path, done_path)
+        return
+    print("📭 Fila vazia — nada extra pra publicar agora.")
+
+
 def main():
     print("🇧🇷 Brasil Digital Bot — Iniciando...\n")
 
     try:
+        if os.environ.get("FILA", "").strip() == "1":
+            _publish_next_from_queue()
+            return
+
         manual_path = sys.argv[1] if len(sys.argv) > 1 else os.environ.get("MANUAL_JSON", "").strip()
         if manual_path:
             _publish_manual(manual_path)
@@ -66,9 +95,14 @@ def main():
             raise Exception("Nenhuma notícia recente encontrada em nenhuma fonte — abortando (sem inventar pauta).")
 
         used_links = load_used_links()
-        article = pick_unused(candidates, used_links)
-        if not article:
+        unused = [c for c in candidates if c["link"] not in used_links]
+        if not unused:
             raise Exception("Todas as notícias recentes já foram publicadas — nada novo e verificado pra postar agora.")
+        try:
+            article = pick_most_engaging(unused)
+        except Exception as e:  # escolha editorial falhou: cai pra mais recente
+            print(f"⚠️  Escolha por engajamento falhou ({e}); usando a mais recente.")
+            article = pick_unused(candidates, used_links)
 
         print(f"✅ Notícia escolhida: [{article['source']}] {article['title']}")
         print(f"   Link: {article['link']}\n")

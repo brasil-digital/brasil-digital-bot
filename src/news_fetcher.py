@@ -22,6 +22,9 @@ FEEDS = [
     ("Canaltech", "https://canaltech.com.br/rss/inteligencia-artificial/"),
     ("Olhar Digital", "https://olhardigital.com.br/editorias/inteligencia-artificial/feed/"),
     ("InfoMoney", "https://www.infomoney.com.br/tudo-sobre/inteligencia-artificial/feed/"),
+    # fontes brasileiras de público amplo (golpes, apps, celular) — mais perto do espectador
+    ("g1 Tecnologia", "https://g1.globo.com/rss/g1/tecnologia/"),
+    ("Tecnoblog", "https://tecnoblog.net/feed/"),
 ]
 
 MAX_AGE_HOURS = 30  # cobre a janela entre os 2 posts diários com folga
@@ -31,7 +34,8 @@ LIMIT_PER_FEED = 8
 # (loteria, cupom/promoção, guia de compra) que não é notícia de tecnologia/IA.
 NOISE_PATTERNS = re.compile(
     r"loteria|quina|lotof[aá]cil|mega-?sena|resultado da|cupom|% ?off|"
-    r"promo[cç][aã]o|achados|onde comprar|melhor pre[cç]o",
+    r"promo[cç][aã]o|achados|onde comprar|melhor pre[cç]o|"
+    r"cai \d+ ?%|\d+ ?% (mais barato|de desconto)|desconto|oferta|mercado livre|amazon prime day",
     re.IGNORECASE,
 )
 

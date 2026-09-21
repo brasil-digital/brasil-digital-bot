@@ -4,10 +4,11 @@ on:
   schedule:
     - cron: '0 9 * * *'   # 06h BRT (9h UTC)
     - cron: '0 21 * * *'  # 18h BRT (21h UTC)
+    - cron: '0 16 * * *'  # 12h Boston / 13h BRT — extra: próximo roteiro de data/fila/
   workflow_dispatch:
     inputs:
       roteiro:
-        description: 'Roteiro manual pronto (ex: data/manual/2026-09-14-agentes-openai.json). Vazio = pauta automática via RSS.'
+        description: 'Roteiro manual pronto (ex: data/manual/2026-09-14-agentes-openai.json). Vazio = pauta automática via RSS. "fila" = próximo de data/fila/.'
         required: false
         default: ''
 
@@ -42,6 +43,7 @@ jobs:
         run: python src/main.py
         env:
           MANUAL_JSON:           ${{ github.event.inputs.roteiro }}
+          FILA:                  ${{ (github.event.schedule == '0 16 * * *' || github.event.inputs.roteiro == 'fila') && '1' || '' }}
           ANTHROPIC_API_KEY:     ${{ secrets.ANTHROPIC_API_KEY }}
           OPENAI_API_KEY:        ${{ secrets.OPENAI_API_KEY }}
           YOUTUBE_CLIENT_ID:     ${{ secrets.YOUTUBE_CLIENT_ID }}
@@ -52,6 +54,7 @@ jobs:
         run: |
           git config user.name "brasil-digital-bot"
           git config user.email "actions@github.com"
-          git add data/posted_links.json
+          git add -A data
           git diff --cached --quiet || git commit -m "Atualiza histórico de notícias publicadas"
+          git pull --rebase
           git push
