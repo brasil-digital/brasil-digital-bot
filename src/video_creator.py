@@ -315,7 +315,11 @@ def create_video(content, output_path="/tmp/brasil_digital_video.mp4", logo_path
     with tempfile.TemporaryDirectory() as tmp:
         imgs = []
         if card_dur:
-            card = _make_title_card(category, subject, content.get("hook", ""), logo_path)
+            cover = content.get("cover_path")
+            if cover and os.path.exists(cover):
+                card = Image.open(cover).convert("RGB").resize((W, H))
+            else:
+                card = _make_title_card(category, subject, content.get("hook", ""), logo_path)
             card_path = os.path.join(tmp, "slide_card.png")
             card.save(card_path)
             imgs.append((card_path, card_dur))

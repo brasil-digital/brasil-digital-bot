@@ -3,16 +3,40 @@
   "subject": "Meta Muse",
   "hook": "A Meta lançou uma IA que trabalha por você dentro do WhatsApp",
   "slides": [
-    {"text": "Muse: a IA da Meta que faz tarefas por você, até no WhatsApp"},
-    {"text": "Manda e-mail, reserva viagem, preenche formulário e até faz compras"},
-    {"text": "Em 10 dias virou o app nº 1 da App Store americana"},
-    {"text": "Só nos EUA por enquanto. Grátis com limite, ou US$ 20 e US$ 100 por mês"},
-    {"text": "Fonte: TechCrunch / Yahoo Tech\nBrasil Digital"}
+    {
+      "text": "Muse: a IA da Meta que faz tarefas por você, até no WhatsApp"
+    },
+    {
+      "text": "Manda e-mail, reserva viagem, preenche formulário e até faz compras"
+    },
+    {
+      "text": "Em 10 dias virou o app nº 1 da App Store americana"
+    },
+    {
+      "text": "Só nos EUA por enquanto. Grátis com limite, ou US$ 20 e US$ 100 por mês"
+    },
+    {
+      "text": "Fonte: TechCrunch / Yahoo Tech\nBrasil Digital"
+    }
   ],
   "narration_script": "A Meta lançou uma inteligência artificial que trabalha por você, até dentro do WhatsApp. O nome é Muse. Diferente de um chatbot comum, ela executa tarefas: manda e-mail, reserva viagem, preenche formulário, transforma um vídeo de receita em lista de mercado e até faz compras. Em dez dias, virou o aplicativo número um da App Store americana. Por enquanto só funciona nos Estados Unidos, com plano grátis limitado e planos de vinte e de cem dólares por mês. O porém: você precisa conectar seu e-mail, sua agenda e seus pagamentos. Você daria esse acesso pra Meta? Comenta e segue o Brasil Digital.",
   "youtube_title": "A IA da Meta que faz tudo por você no WhatsApp 🤯",
   "youtube_description": "A Meta lançou em 8 de setembro o Muse, um agente de inteligência artificial que executa tarefas pelo usuário: envia e-mails, reserva viagens, preenche formulários, transforma vídeos de receita em lista de compras e faz compras. Funciona na web, em apps para iOS e Android e dentro do WhatsApp. Em 18 de setembro, dez dias após o lançamento, chegou ao 1º lugar da App Store dos EUA.\n\nPor enquanto só nos Estados Unidos. Há um plano gratuito com limites e planos de US$ 20 e US$ 100 por mês. Para funcionar, o usuário precisa conectar e-mail, agenda, pagamentos e outros apps — o que levanta dúvidas de privacidade.\n\nFonte: TechCrunch — https://techcrunch.com/2026/09/08/meta-debuts-its-muse-ai-agent-will-consumers-trust-it/\nFonte: Yahoo Tech — https://tech.yahoo.com/ai/article/metas-ai-agent-muse-is-chasing-chatgpts-app-store-rise--and-hit-no-1-with-fewer-downloads-152809095.html\n\n#Meta #Muse #WhatsApp #InteligenciaArtificial #IA #AgenteDeIA #BrasilDigital #Shorts",
-  "tags": ["meta", "muse", "meta muse", "whatsapp", "ia", "inteligencia artificial", "agente de ia", "app", "tecnologia", "shorts"],
+  "tags": [
+    "meta",
+    "muse",
+    "meta muse",
+    "whatsapp",
+    "ia",
+    "inteligencia artificial",
+    "agente de ia",
+    "app",
+    "tecnologia",
+    "shorts"
+  ],
   "source": "TechCrunch / Yahoo Tech",
-  "source_link": "https://techcrunch.com/2026/09/08/meta-debuts-its-muse-ai-agent-will-consumers-trust-it/"
+  "source_link": "https://techcrunch.com/2026/09/08/meta-debuts-its-muse-ai-agent-will-consumers-trust-it/",
+  "thumb_text": "UMA IA QUE FAZ TUDO POR VOCÊ",
+  "badge": "VEJA ISSO",
+  "image_prompt": "An anonymous relaxed man on a sofa while a glowing holographic AI assistant made of green light handles floating chat bubbles, emails, plane tickets and shopping bags around his phone"
 }

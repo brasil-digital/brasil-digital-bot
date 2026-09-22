@@ -3,16 +3,39 @@
   "subject": "iPhone Duo",
   "hook": "A Apple finalmente lançou o iPhone que dobra",
   "slides": [
-    {"text": "Chegou o primeiro iPhone dobrável: o iPhone Duo"},
-    {"text": "Fechado, tela de 5,4 polegadas. Aberto, 7,6 — quase um tablet"},
-    {"text": "Preço: a partir de US$ 1.999. Pré-venda em 16 de outubro"},
-    {"text": "Chega às lojas em 23 de outubro, em mais de 70 países"},
-    {"text": "Fonte: Apple Newsroom\nBrasil Digital"}
+    {
+      "text": "Chegou o primeiro iPhone dobrável: o iPhone Duo"
+    },
+    {
+      "text": "Fechado, tela de 5,4 polegadas. Aberto, 7,6 — quase um tablet"
+    },
+    {
+      "text": "Preço: a partir de US$ 1.999. Pré-venda em 16 de outubro"
+    },
+    {
+      "text": "Chega às lojas em 23 de outubro, em mais de 70 países"
+    },
+    {
+      "text": "Fonte: Apple Newsroom\nBrasil Digital"
+    }
   ],
   "narration_script": "A Apple finalmente lançou o iPhone que dobra. O nome é iPhone Duo. Fechado, ele tem tela de cinco vírgula quatro polegadas. Aberto, vira uma tela de sete vírgula seis, quase um tablet no bolso. É feito de titânio, tem duas câmeras de quarenta e oito megapixels e resiste à água. Agora, o preço assusta: a partir de mil novecentos e noventa e nove dólares. A pré-venda começa em dezesseis de outubro, e ele chega às lojas no dia vinte e três, em mais de setenta países. Você pagaria isso num celular dobrável? Comenta aí e segue o Brasil Digital.",
   "youtube_title": "O iPhone que dobra chegou! Veja quanto custa o iPhone Duo",
   "youtube_description": "A Apple apresentou o iPhone Duo, seu primeiro iPhone dobrável. Fechado, tem tela de 5,4 polegadas; aberto, 7,6 polegadas. Corpo de titânio, dobradiça com mais de 100 componentes, câmeras de 48 MP, chip A20 Pro e resistência IP68.\n\nPreço a partir de US$ 1.999 (256 GB). Pré-venda em 16 de outubro e lançamento em 23 de outubro em mais de 70 países.\n\nFonte: Apple Newsroom — https://www.apple.com/newsroom/2026/09/apple-unveils-iphone-duo/\n\n#iPhone #iPhoneDuo #Apple #Dobravel #Celular #Tecnologia #BrasilDigital #Shorts",
-  "tags": ["iphone", "iphone duo", "iphone dobravel", "apple", "iphone fold", "celular dobravel", "lancamento apple", "tecnologia", "shorts"],
+  "tags": [
+    "iphone",
+    "iphone duo",
+    "iphone dobravel",
+    "apple",
+    "iphone fold",
+    "celular dobravel",
+    "lancamento apple",
+    "tecnologia",
+    "shorts"
+  ],
   "source": "Apple Newsroom",
-  "source_link": "https://www.apple.com/newsroom/2026/09/apple-unveils-iphone-duo/"
+  "source_link": "https://www.apple.com/newsroom/2026/09/apple-unveils-iphone-duo/",
+  "thumb_text": "O IPHONE QUE DOBRA",
+  "badge": "LANÇAMENTO",
+  "image_prompt": "A sleek unbranded foldable smartphone half-open like a book, glowing screen, floating in a dark studio with dramatic blue and gold rim light, an amazed anonymous young person's face softly lit behind it"
 }

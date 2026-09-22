@@ -3,16 +3,40 @@
   "subject": "Nova Siri",
   "hook": "Seu iPhone ganhou uma Siri nova — mas tem um detalhe",
   "slides": [
-    {"text": "A nova Siri com inteligência artificial chegou no iOS 27"},
-    {"text": "Ela entende sua tela e acha coisas nas suas mensagens, e-mails e fotos"},
-    {"text": "Funciona no iPhone 15 Pro ou mais novo"},
-    {"text": "O detalhe: em português, só em outubro"},
-    {"text": "Fonte: Gizmodo / 9to5Mac\nBrasil Digital"}
+    {
+      "text": "A nova Siri com inteligência artificial chegou no iOS 27"
+    },
+    {
+      "text": "Ela entende sua tela e acha coisas nas suas mensagens, e-mails e fotos"
+    },
+    {
+      "text": "Funciona no iPhone 15 Pro ou mais novo"
+    },
+    {
+      "text": "O detalhe: em português, só em outubro"
+    },
+    {
+      "text": "Fonte: Gizmodo / 9to5Mac\nBrasil Digital"
+    }
   ],
   "narration_script": "Seu iPhone ganhou uma Siri nova, mas tem um detalhe. O iOS vinte e sete já está liberado e traz a Siri com inteligência artificial, feita com base nos modelos Gemini do Google. Ela entende o que está na sua tela, encontra informações nas suas mensagens, e-mails e fotos, e até ajuda a escrever textos no seu estilo. Funciona no iPhone quinze Pro ou mais novo. O detalhe: por enquanto ela só fala inglês. Português, só em outubro. Pra atualizar, vai em Ajustes, Geral, Atualização de Software, e faz backup antes. Você vai testar? Comenta e segue o Brasil Digital.",
   "youtube_title": "A Siri nova chegou no iPhone… mas tem um detalhe",
   "youtube_description": "O iOS 27 foi liberado em 14 de setembro com a nova Siri com inteligência artificial, construída com base nos modelos Gemini do Google. Ela usa o contexto pessoal para achar informações em mensagens, e-mails e fotos, entende o que está na tela e ajuda a escrever textos.\n\nFunciona no iPhone 15 Pro, 15 Pro Max, iPhone 16 ou mais novo, iPhone Air e iPhone Duo. No lançamento, só em inglês — português chega em outubro. Para atualizar: Ajustes > Geral > Atualização de Software (faça backup antes).\n\nFonte: Gizmodo — https://gizmodo.com/ios-27-and-siri-ai-are-officially-available-to-download-2000811437\nFonte: 9to5Mac — https://9to5mac.com/2026/09/14/ios-27-now-available-features-compatible-iphones/\nFonte: TechCrunch — https://techcrunch.com/2026/07/14/apple-opens-its-new-siri-ai-to-everyone-with-the-ios-27-public-beta/\n\n#Siri #iOS27 #iPhone #Apple #InteligenciaArtificial #Gemini #BrasilDigital #Shorts",
-  "tags": ["siri", "nova siri", "ios 27", "iphone", "apple", "siri ia", "gemini", "atualizacao iphone", "tecnologia", "shorts"],
+  "tags": [
+    "siri",
+    "nova siri",
+    "ios 27",
+    "iphone",
+    "apple",
+    "siri ia",
+    "gemini",
+    "atualizacao iphone",
+    "tecnologia",
+    "shorts"
+  ],
   "source": "Gizmodo / 9to5Mac",
-  "source_link": "https://gizmodo.com/ios-27-and-siri-ai-are-officially-available-to-download-2000811437"
+  "source_link": "https://gizmodo.com/ios-27-and-siri-ai-are-officially-available-to-download-2000811437",
+  "thumb_text": "A SIRI NOVA TEM UM DETALHE",
+  "badge": "NOVIDADE",
+  "image_prompt": "An anonymous surprised young woman looking at her unbranded smartphone that emits a colorful glowing voice-assistant orb of light, night city bokeh background"
 }

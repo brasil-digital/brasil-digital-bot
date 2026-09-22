@@ -9,10 +9,20 @@ from content_generator import generate_content, pick_most_engaging
 from narration import generate_narration
 from video_creator import create_video
 from youtube_uploader import upload_video
+from thumbnail import generate_background, make_cover
 
 LOGO_PATH = os.path.join(os.path.dirname(__file__), "..", "assets", "logo.png")
 QUEUE_DIR = os.path.join(os.path.dirname(__file__), "..", "data", "fila")
 MANUAL_DIR = os.path.join(os.path.dirname(__file__), "..", "data", "manual")
+COVER_PATH = "/tmp/bd_cover.jpg"
+
+
+def _make_cover(content: dict) -> None:
+    """Gera a capa (imagem IA + texto gigante) e grava o caminho em content['cover_path']."""
+    print("\n🖼️  Criando capa/thumbnail...")
+    bg = generate_background(content.get("image_prompt", ""), "/tmp/bd_cover_bg.png")
+    make_cover(content, bg).save(COVER_PATH, quality=90)
+    content["cover_path"] = COVER_PATH
 
 
 def _publish_manual(path: str):
@@ -38,6 +48,7 @@ def _publish_manual(path: str):
 
     print("🎙️  Gerando narração...")
     audio_path = generate_narration(content["narration_script"], "/tmp/bd_narration.mp3")
+    _make_cover(content)
 
     print("\n🎬 Criando YouTube Short...")
     logo = LOGO_PATH if os.path.exists(LOGO_PATH) else None
@@ -114,6 +125,7 @@ def main():
 
         print("🎙️  Gerando narração...")
         audio_path = generate_narration(content["narration_script"], "/tmp/bd_narration.mp3")
+        _make_cover(content)
 
         print("\n🎬 Criando YouTube Short...")
         logo = LOGO_PATH if os.path.exists(LOGO_PATH) else None

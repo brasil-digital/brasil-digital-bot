@@ -56,4 +56,14 @@ def upload_video(video_path, content):
     video_id = response["id"]
     url = f"https://www.youtube.com/watch?v={video_id}"
     print(f"✅ Publicado: {url}")
+
+    # Thumbnail oficial (aparece na busca, no canal e em "Relacionados").
+    # Pode falhar se o canal não for verificado — o vídeo já está no ar mesmo assim.
+    cover = content.get("cover_path")
+    if cover and os.path.exists(cover):
+        try:
+            youtube.thumbnails().set(videoId=video_id, media_body=MediaFileUpload(cover, mimetype="image/jpeg")).execute()
+            print("🖼️  Thumbnail personalizada aplicada")
+        except Exception as e:
+            print(f"⚠️  Thumbnail não aplicada ({e}); fica a capa do 1º quadro.")
     return {"id": video_id, "url": url}
