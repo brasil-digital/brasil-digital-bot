@@ -1,6 +1,6 @@
 """Capa/thumbnail que puxa clique: imagem gerada por IA do assunto + texto gigante.
 
-Estilo da identidade do canal (arte "BRAZIL DIGITAL"): azul-escuro, brilho
+Estilo da identidade do canal (arte "BRAZIL DIGITAL" do banner): azul-escuro, brilho
 verde/amarelo, letras grossas branco + amarelo, selo vermelho.
 
 A imagem é só ilustração do tema (sem texto, sem logo, sem pessoa real) —
@@ -172,6 +172,6 @@ def make_cover(content: dict, bg_path: str | None = None) -> Image.Image:
                stroke_width=12, stroke_fill=(0, 0, 0))
 
     # marca do canal
-    d.text((W // 2, y_bottom + 70), "BRAZIL DIGITAL  •  " + HANDLE, font=_mont(40, b"ExtraBold"),
+    d.text((W // 2, y_bottom + 70), "BRASIL DIGITAL  •  " + HANDLE, font=_mont(40, b"ExtraBold"),
            fill=WHITE, anchor="mm", stroke_width=4, stroke_fill=(0, 0, 0))
     return img
