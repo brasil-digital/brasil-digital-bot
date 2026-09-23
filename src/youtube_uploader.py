@@ -22,8 +22,10 @@ def _get_client():
 def upload_video(video_path, content):
     youtube = _get_client()
 
-    title = content["youtube_title"][:100]
-    description = content.get("youtube_description", "")
+    # YouTube rejeita "<" e ">" no título/descrição (invalidDescription)
+    clean = lambda s: s.replace("<", "‹").replace(">", "›")
+    title = clean(content["youtube_title"])[:100]
+    description = clean(content.get("youtube_description", ""))[:4900]
     tags = content.get("tags", [])
 
     body = {
