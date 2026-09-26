@@ -46,13 +46,21 @@ def _publish_manual(path: str):
     print(f"   Fonte : {content['source']} — {content['source_link']}")
     print(f"   Título: {content['youtube_title']}\n")
 
-    print("🎙️  Gerando narração...")
-    audio_path = generate_narration(content["narration_script"], "/tmp/bd_narration.mp3")
-    _make_cover(content)
+    repo = os.path.join(os.path.dirname(__file__), "..")
+    if content.get("video_file"):
+        # vídeo já editado à mão (ex.: análise de clipe viral) — só publica
+        video_path = os.path.join(repo, content["video_file"])
+        if content.get("cover_file"):
+            content["cover_path"] = os.path.join(repo, content["cover_file"])
+        print(f"🎬 Vídeo pronto: {video_path}")
+    else:
+        print("🎙️  Gerando narração...")
+        audio_path = generate_narration(content["narration_script"], "/tmp/bd_narration.mp3")
+        _make_cover(content)
 
-    print("\n🎬 Criando YouTube Short...")
-    logo = LOGO_PATH if os.path.exists(LOGO_PATH) else None
-    video_path = create_video(content, "/tmp/bd_video.mp4", logo_path=logo, audio_path=audio_path)
+        print("\n🎬 Criando YouTube Short...")
+        logo = LOGO_PATH if os.path.exists(LOGO_PATH) else None
+        video_path = create_video(content, "/tmp/bd_video.mp4", logo_path=logo, audio_path=audio_path)
 
     print("\n📤 Publicando no YouTube...")
     result = upload_video(video_path, content)
