@@ -1,0 +1,57 @@
+name: Brasil Digital - Video Longo
+
+on:
+  schedule:
+    - cron: '0 15 * * 1,3,5'   # seg/qua/sex 12h BRT (15h UTC)
+  workflow_dispatch:
+    inputs:
+      roteiro:
+        description: 'Roteiro pronto (ex: data/longos/2026-10-01-tema.json). Vazio = pauta automática.'
+        required: false
+        default: ''
+
+permissions:
+  contents: write
+
+jobs:
+  video:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Instalar ffmpeg
+        run: sudo apt-get update && sudo apt-get install -y ffmpeg
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Cache pip
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: pip-${{ hashFiles('requirements.txt') }}
+
+      - name: Instalar dependências
+        run: pip install -r requirements.txt
+
+      - name: Gerar e publicar vídeo longo
+        run: python src/longform.py
+        env:
+          ROTEIRO_LONGO:         ${{ github.event.inputs.roteiro }}
+          ANTHROPIC_API_KEY:     ${{ secrets.ANTHROPIC_API_KEY }}
+          OPENAI_API_KEY:        ${{ secrets.OPENAI_API_KEY }}
+          YOUTUBE_CLIENT_ID:     ${{ secrets.YOUTUBE_CLIENT_ID }}
+          YOUTUBE_CLIENT_SECRET: ${{ secrets.YOUTUBE_CLIENT_SECRET }}
+          YOUTUBE_REFRESH_TOKEN: ${{ secrets.YOUTUBE_REFRESH_TOKEN }}
+
+      - name: Salvar histórico dos vídeos longos
+        run: |
+          git config user.name "brasil-digital-bot"
+          git config user.email "actions@github.com"
+          git add -A data
+          git diff --cached --quiet || git commit -m "Atualiza histórico dos vídeos longos"
+          git pull --rebase
+          git push

@@ -27,6 +27,21 @@ FEEDS = [
     ("Tecnoblog", "https://tecnoblog.net/feed/"),
 ]
 
+# Vídeos longos (aba Vídeos): além das fontes dos Shorts, pautas de guerra
+# tecnológica, cibersegurança, política/regulação tech e checagem de fake news.
+LONGFORM_FEEDS = FEEDS + [
+    ("BBC Technology", "https://feeds.bbci.co.uk/news/technology/rss.xml"),
+    ("Rest of World", "https://restofworld.org/feed/latest/"),
+    ("Politico Tech", "https://rss.politico.com/technology.xml"),
+    ("Núcleo Jornalismo", "https://nucleo.jor.br/feed/"),
+    ("The Record", "https://therecord.media/feed"),
+    ("The Hacker News", "https://feeds.feedburner.com/TheHackersNews"),
+    ("Defense One", "https://www.defenseone.com/rss/technology/"),
+    ("Breaking Defense", "https://breakingdefense.com/feed/"),
+    ("Aos Fatos", "https://www.aosfatos.org/noticias/feed/"),
+    ("Lupa", "https://lupa.uol.com.br/feed/"),
+]
+
 MAX_AGE_HOURS = 30  # cobre a janela entre os 2 posts diários com folga
 LIMIT_PER_FEED = 8
 
@@ -47,12 +62,12 @@ def _clean_html(text: str) -> str:
     return text
 
 
-def fetch_candidates(max_age_hours: int = MAX_AGE_HOURS) -> list[dict]:
+def fetch_candidates(max_age_hours: int = MAX_AGE_HOURS, feeds: list | None = None) -> list[dict]:
     """Retorna lista de notícias recentes reais, mais novas primeiro."""
     now = datetime.datetime.now(datetime.timezone.utc)
     candidates = []
 
-    for source, url in FEEDS:
+    for source, url in feeds or FEEDS:
         try:
             parsed = feedparser.parse(url)
         except Exception as e:

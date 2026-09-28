@@ -32,7 +32,13 @@ IMAGE_STYLE = (
 )
 
 
-def generate_background(image_prompt: str, out_path: str) -> str | None:
+IMAGE_STYLE_WIDE = IMAGE_STYLE.replace("Vertical 9:16", "Horizontal 16:9").replace(
+    "Leave the lower half slightly darker and uncluttered.",
+    "Keep the main subject on the right half; leave the left half darker and uncluttered.",
+)
+
+
+def generate_background(image_prompt: str, out_path: str, wide: bool = False) -> str | None:
     """Gera o fundo com a OpenAI. Falhou? Devolve None e a capa usa o fundo neon."""
     if not image_prompt:
         return None
@@ -40,8 +46,8 @@ def generate_background(image_prompt: str, out_path: str) -> str | None:
         from openai import OpenAI
         client = OpenAI(api_key=os.environ["OPENAI_API_KEY"])
         r = client.images.generate(
-            model="gpt-image-1", size="1024x1536", quality="medium",
-            prompt=IMAGE_STYLE + image_prompt,
+            model="gpt-image-1", size="1536x1024" if wide else "1024x1536", quality="medium",
+            prompt=(IMAGE_STYLE_WIDE if wide else IMAGE_STYLE) + image_prompt,
         )
         with open(out_path, "wb") as f:
             f.write(base64.b64decode(r.data[0].b64_json))
@@ -60,26 +66,27 @@ def _mont(size, weight=b"Black"):
     return f
 
 
-def _neon_background() -> Image.Image:
+def _neon_background(w: int = W, h: int = H) -> Image.Image:
     """Fundo de reserva no estilo da arte do canal: navy + ondas verde/amarelo."""
-    img = Image.new("RGB", (W, H), NAVY)
-    glow = Image.new("RGB", (W, H), (0, 0, 0))
+    img = Image.new("RGB", (w, h), NAVY)
+    glow = Image.new("RGB", (w, h), (0, 0, 0))
     d = ImageDraw.Draw(glow)
+    base = int(h * 0.65)
     for i, color in enumerate([GREEN, YELLOW, (0, 120, 255)]):
         off = i * 90
-        pts = [(x, 1250 + off + int(160 * __import__("math").sin((x + off * 3) / 170))) for x in range(0, W + 20, 20)]
+        pts = [(x, base + off + int(160 * __import__("math").sin((x + off * 3) / 170))) for x in range(0, w + 20, 20)]
         d.line(pts, fill=color, width=22)
     glow = glow.filter(ImageFilter.GaussianBlur(18))
     img = Image.blend(img, glow, 0.85)
-    ImageDraw.Draw(img).ellipse([(W - 520, -260), (W + 260, 520)], outline=(0, 140, 255), width=6)
+    ImageDraw.Draw(img).ellipse([(w - 520, -260), (w + 260, 520)], outline=(0, 140, 255), width=6)
     return img
 
 
-def _cover_fit(bg: Image.Image) -> Image.Image:
-    scale = max(W / bg.width, H / bg.height)
+def _cover_fit(bg: Image.Image, w: int = W, h: int = H) -> Image.Image:
+    scale = max(w / bg.width, h / bg.height)
     bg = bg.resize((int(bg.width * scale) + 1, int(bg.height * scale) + 1), Image.LANCZOS)
-    left, top = (bg.width - W) // 2, (bg.height - H) // 2
-    return bg.crop((left, top, left + W, top + H))
+    left, top = (bg.width - w) // 2, (bg.height - h) // 2
+    return bg.crop((left, top, left + w, top + h))
 
 
 def _shade(img: Image.Image) -> Image.Image:
@@ -95,6 +102,17 @@ def _shade(img: Image.Image) -> Image.Image:
             a = 0
         d.line([(0, y), (W, y)], fill=a)
     black = Image.new("RGB", (W, H), (0, 0, 0))
+    return Image.composite(black, img, overlay)
+
+
+def _shade_left(img: Image.Image) -> Image.Image:
+    """Capa horizontal: escurece a esquerda (onde vai o texto) sobre qualquer foto."""
+    w, h = img.size
+    overlay = Image.new("L", (w, h), 0)
+    d = ImageDraw.Draw(overlay)
+    for x in range(w):
+        d.line([(x, 0), (x, h)], fill=int(215 * max(0.0, 1 - x / (w * 0.7))))
+    black = Image.new("RGB", (w, h), (0, 0, 0))
     return Image.composite(black, img, overlay)
 
 
@@ -174,4 +192,39 @@ def make_cover(content: dict, bg_path: str | None = None) -> Image.Image:
     # marca do canal
     d.text((W // 2, y_bottom + 70), "BRASIL DIGITAL  •  " + HANDLE, font=_mont(40, b"ExtraBold"),
            fill=WHITE, anchor="mm", stroke_width=4, stroke_fill=(0, 0, 0))
+    return img
+
+
+def make_cover_wide(content: dict, bg_path: str | None = None, size=(1280, 720)) -> Image.Image:
+    """Thumbnail 16:9 dos vídeos longos: foto à direita, texto gigante à esquerda."""
+    w, h = size
+    if bg_path and os.path.exists(bg_path):
+        img = _cover_fit(Image.open(bg_path).convert("RGB"), w, h)
+    else:
+        img = _neon_background(w, h)
+    img = _shade_left(img)
+
+    d = ImageDraw.Draw(img)
+    d.rectangle([(0, 0), (w, 8)], fill=GREEN)
+    d.rectangle([(0, 8), (w, 15)], fill=YELLOW)
+
+    badge = (content.get("badge") or "NOVIDADE").upper()[:20]
+    bf = _mont(34)
+    bw = d.textlength(badge, font=bf)
+    _pill(d, (48 + 26 + bw / 2, 78), badge, bf, RED, pad=(26, 14))
+
+    text = (content.get("thumb_text") or content.get("subject") or "TECNOLOGIA").upper()
+    box_w, box_h = int(w * 0.6), 450
+    font, lines = _fit_lines(d, text.split(), FONT_ANTON, box_w, box_h, max_size=170, min_size=70)
+    asc, desc = font.getmetrics()
+    lh = int((asc + desc) * 0.98)
+    y0 = 135 + (box_h - lh * len(lines)) // 2
+    for i, line in enumerate(lines):
+        color = WHITE if i == 0 and len(lines) > 1 else YELLOW
+        y = y0 + i * lh + lh // 2
+        d.text((48, y), line, font=font, fill=color, anchor="lm",
+               stroke_width=9, stroke_fill=(0, 0, 0))
+
+    d.text((48, h - 45), "BRASIL DIGITAL  •  " + HANDLE, font=_mont(28, b"ExtraBold"),
+           fill=WHITE, anchor="lm", stroke_width=3, stroke_fill=(0, 0, 0))
     return img
