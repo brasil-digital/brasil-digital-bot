@@ -41,13 +41,27 @@ def _json(response):
     return json.loads(text.strip())
 
 
+CHANNEL_FEED = "https://www.youtube.com/feeds/videos.xml?channel_id=UCVXyxst4cIDX8IKnd1v4JUw"
+
+
+def channel_recent_titles() -> list[str]:
+    """Últimos ~15 títulos do canal (Shorts + vídeos), pra não repetir assunto."""
+    try:
+        import feedparser
+        return [e.title for e in feedparser.parse(CHANNEL_FEED).entries]
+    except Exception:
+        return []
+
+
 def rank_stories(candidates: list[dict], recent: list[dict]) -> list[dict]:
     """Devolve até 6 notícias REAIS em ordem de preferência (só escolhe, não altera)."""
     pool = candidates[:MAX_PICK_CANDIDATES]
     listing = "\n".join(
         f"{i}. [{c['source']}] {c['title']} — {c['summary'][:180]}" for i, c in enumerate(pool)
     )
-    recent_txt = "\n".join(f"- [{r['category']}] {r['title']}" for r in recent[-8:]) or "- (nenhum ainda)"
+    recent_lines = [f"- [vídeo longo, {r['category']}] {r['title']}" for r in recent[-8:]]
+    recent_lines += [f"- {t}" for t in channel_recent_titles()]
+    recent_txt = "\n".join(recent_lines) or "- (nenhum ainda)"
     prompt = f"""Você é o editor de pauta do canal "Brasil Digital" no YouTube. Vamos produzir um VÍDEO de 3 a 4 minutos (não Short) pra brasileiros comuns, no Brasil e nos EUA, sobre tecnologia no mundo real: inteligência artificial, golpes com IA e fake news, guerra tecnológica (drones, ciberataques, IA militar), política e regulação da tecnologia, big techs, cibersegurança, tecnologia no Brasil.
 
 Escolha as notícias com MAIS potencial de gerar clique, tempo assistido e comentários: fatos com consequência grande, surpreendentes, que o público vai querer entender melhor ou mandar pra alguém. Tem que ter assunto pra 3 minutos.
@@ -55,9 +69,9 @@ Escolha as notícias com MAIS potencial de gerar clique, tempo assistido e comen
 EVITE:
 - política partidária e eleitoral (candidatos, Lula x Bolsonaro, pesquisas de voto, checagem de fala de político). Checagem de fake news só serve se for sobre golpe, deepfake ou tecnologia.
 - eventos e ingressos, rodadas de investimento, valuation, benchmark técnico, notícia de nicho que só interessa a quem trabalha no setor, promoção de produto.
-- repetir o assunto ou a categoria dos vídeos recentes abaixo. Varie o tema.
+- repetir o ASSUNTO de qualquer vídeo recente do canal abaixo (Shorts incluídos), mesmo que a notícia seja outra, e repetir a categoria dos últimos vídeos longos. Varie o tema.
 
-Vídeos publicados recentemente:
+Vídeos publicados recentemente no canal:
 {recent_txt}
 
 Notícias disponíveis:
