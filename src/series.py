@@ -35,7 +35,10 @@ SERIES = {
 }
 
 MAX_SHORT_SECONDS = 180
-_REAL_OU_IA = re.compile(r"é real|é ia\b|feito por ia|falso|fake", re.I)
+# só entra no backfill o formato atual (virada pra engajamento em 21/set/2026);
+# antes disso o canal tem vídeos avulsos e propaganda do app que não são episódios
+BACKFILL_SINCE = "2026-09-21"
+_REAL_OU_IA = re.compile(r"é real|é ia\b|feito por ia|falso", re.I)
 _GOLPES = re.compile(r"golpe|hacker|invad|ataque|senha|vazamento|vazou|clonad|segurança|espion|roub", re.I)
 
 
