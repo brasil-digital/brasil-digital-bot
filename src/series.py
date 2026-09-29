@@ -140,7 +140,8 @@ def _channel_shorts(youtube):
     for i in range(0, len(ids), 50):
         response = youtube.videos().list(part="snippet,contentDetails,status", id=",".join(ids[i:i + 50])).execute()
         for v in response.get("items", []):
-            if v["status"]["privacyStatus"] != "public" or _seconds(v["contentDetails"]["duration"]) > MAX_SHORT_SECONDS:
+            if (v["status"]["privacyStatus"] != "public" or v["snippet"]["publishedAt"] < BACKFILL_SINCE
+                    or _seconds(v["contentDetails"]["duration"]) > MAX_SHORT_SECONDS):
                 continue
             shorts.append({"id": v["id"], "title": v["snippet"]["title"], "date": v["snippet"]["publishedAt"]})
     return sorted(shorts, key=lambda s: s["date"])
