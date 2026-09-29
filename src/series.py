@@ -38,6 +38,10 @@ MAX_SHORT_SECONDS = 180
 # só entra no backfill o formato atual (virada pra engajamento em 21/set/2026);
 # antes disso o canal tem vídeos avulsos e propaganda do app que não são episódios
 BACKFILL_SINCE = "2026-09-21"
+BACKFILL_SKIP = {
+    "ATpb3crgFH8",  # Rambo: clipe repostado do X, não é episódio do bot
+    "fV_NplwR4JM", "KAaGsEkj3kc",  # "Como a IA pode ajudar sua vida..." — institucional, não notícia
+}
 _REAL_OU_IA = re.compile(r"é real|é ia\b|feito por ia|falso", re.I)
 _GOLPES = re.compile(r"golpe|hacker|invad|ataque|senha|vazamento|vazou|clonad|segurança|espion|roub", re.I)
 
@@ -144,6 +148,7 @@ def _channel_shorts(youtube):
         response = youtube.videos().list(part="snippet,contentDetails,status", id=",".join(ids[i:i + 50])).execute()
         for v in response.get("items", []):
             if (v["status"]["privacyStatus"] != "public" or v["snippet"]["publishedAt"] < BACKFILL_SINCE
+                    or v["id"] in BACKFILL_SKIP
                     or _seconds(v["contentDetails"]["duration"]) > MAX_SHORT_SECONDS):
                 continue
             shorts.append({"id": v["id"], "title": v["snippet"]["title"], "date": v["snippet"]["publishedAt"]})
