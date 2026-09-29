@@ -9,7 +9,6 @@ from content_generator import generate_content, pick_most_engaging
 from narration import generate_narration
 from video_creator import create_video
 from youtube_uploader import upload_video
-from series import add_to_series
 from thumbnail import generate_background, make_cover
 
 LOGO_PATH = os.path.join(os.path.dirname(__file__), "..", "assets", "logo.png")
@@ -66,7 +65,6 @@ def _publish_manual(path: str):
     print("\n📤 Publicando no YouTube...")
     result = upload_video(video_path, content)
     save_used_link(content["source_link"])
-    add_to_series(result["id"], content)
 
     print("\n🎉 Short publicado!")
     print(f"   Título: {content['youtube_title']}")
@@ -145,7 +143,6 @@ def main():
         result = upload_video(video_path, content)
 
         save_used_link(article["link"])
-        add_to_series(result["id"], content)
 
         print(f"\n🎉 Short publicado!")
         print(f"   Fonte : {article['source']} — {article['link']}")

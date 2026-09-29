@@ -11,11 +11,6 @@ on:
         description: 'Roteiro manual pronto (ex: data/manual/2026-09-14-agentes-openai.json). Vazio = pauta automática via RSS. "fila" = próximo de data/fila/.'
         required: false
         default: ''
-      backfill:
-        description: 'Séries: não publica nada, só coloca os Shorts já publicados nas playlists (plano = só mostra)'
-        type: choice
-        options: ['', plano, aplicar]
-        default: ''
 
 permissions:
   contents: write
@@ -44,16 +39,7 @@ jobs:
       - name: Instalar dependências
         run: pip install -r requirements.txt
 
-      - name: Preencher playlists das séries
-        if: ${{ github.event.inputs.backfill != '' && github.event.inputs.backfill != null }}
-        run: python src/series.py --backfill ${{ github.event.inputs.backfill == 'aplicar' && '--apply' || '' }}
-        env:
-          YOUTUBE_CLIENT_ID:     ${{ secrets.YOUTUBE_CLIENT_ID }}
-          YOUTUBE_CLIENT_SECRET: ${{ secrets.YOUTUBE_CLIENT_SECRET }}
-          YOUTUBE_REFRESH_TOKEN: ${{ secrets.YOUTUBE_REFRESH_TOKEN }}
-
       - name: Gerar e publicar Short
-        if: ${{ !github.event.inputs.backfill }}
         run: python src/main.py
         env:
           MANUAL_JSON:           ${{ github.event.inputs.roteiro }}
@@ -65,7 +51,6 @@ jobs:
           YOUTUBE_REFRESH_TOKEN: ${{ secrets.YOUTUBE_REFRESH_TOKEN }}
 
       - name: Salvar histórico de notícias já publicadas
-        if: ${{ !github.event.inputs.backfill }}
         run: |
           git config user.name "brasil-digital-bot"
           git config user.email "actions@github.com"
