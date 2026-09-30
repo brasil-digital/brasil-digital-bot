@@ -1,0 +1,39 @@
+name: Brasil Digital - Publicar vídeo pronto
+
+# Vídeo feito fora do bot (ex.: avatar ElevenLabs). Suba video.mp4, thumb.jpg e meta.json
+# num release do GitHub e rode este workflow com a tag do release.
+on:
+  workflow_dispatch:
+    inputs:
+      release:
+        description: 'Tag do release com video.mp4, thumb.jpg e meta.json'
+        required: true
+
+permissions:
+  contents: read
+
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Instalar dependências
+        run: pip install google-api-python-client google-auth google-auth-httplib2
+
+      - name: Baixar arquivos do release
+        run: gh release download "${{ github.event.inputs.release }}" --dir /tmp/manual
+        env:
+          GH_TOKEN: ${{ github.token }}
+
+      - name: Publicar no YouTube
+        run: python src/upload_manual.py /tmp/manual
+        env:
+          YOUTUBE_CLIENT_ID:     ${{ secrets.YOUTUBE_CLIENT_ID }}
+          YOUTUBE_CLIENT_SECRET: ${{ secrets.YOUTUBE_CLIENT_SECRET }}
+          YOUTUBE_REFRESH_TOKEN: ${{ secrets.YOUTUBE_REFRESH_TOKEN }}
