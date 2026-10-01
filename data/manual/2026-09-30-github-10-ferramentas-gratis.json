@@ -1,0 +1,42 @@
+{
+  "category": "ferramentas",
+  "subject": "Post viral sobre 10 ferramentas grátis de IA no GitHub",
+  "hook": "10 ferramentas de IA grátis que substituem programas caros. É verdade?",
+  "slides": [
+    {
+      "text": "Post viral: 10 projetos do GitHub substituem ferramentas de milhares de dólares"
+    },
+    {
+      "text": "Verdade: todos existem e quase todos são populares e ativos"
+    },
+    {
+      "text": "Mas o Coqui TTS está abandonado desde 2024 e o Quivr virou biblioteca de programador"
+    },
+    {
+      "text": "O 'AI Studio' cobra pelas APIs, e o 'hedge fund' é só educacional"
+    },
+    {
+      "text": "Vale testar: Upscayl, Meetily e LocalAI\nBrasil Digital"
+    }
+  ],
+  "narration_script": "Dez ferramentas de IA grátis que substituem programas caríssimos. Isso é verdade? Conferimos no GitHub. Os projetos existem e quase todos estão ativos, com dezenas de milhares de estrelas. Mas tem pegadinha. O Coqui, de voz, está abandonado desde 2024. O Quivr virou ferramenta para programador. O estúdio de vídeo cobra pelas APIs, e o fundo de investimento com IA é só educacional. O que vale testar: o Upscayl, que melhora fotos sem internet, e o Meetily, que resume reuniões no seu computador. Você usaria? Comenta aí e segue o Brasil Digital.",
+  "youtube_title": "10 ferramentas de IA GRÁTIS que substituem programas caros? Verificamos",
+  "youtube_description": "Um post viral diz que o GitHub \"esconde\" 10 projetos open-source que substituem ferramentas pagas de centenas ou milhares de dólares. Conferimos cada um direto no GitHub (estrelas, última atualização e situação do projeto) em 30/set/2026:\n\n✅ AI Hedge Fund: existe e é popular (64 mil estrelas), mas o próprio autor diz que é educacional, não para operar com dinheiro real\n✅ ScrapeGraphAI: funciona, mas precisa de um modelo de IA (API ou local)\n✅ Meetily: transcreve e resume reuniões no seu computador\n⚠️ Open-Generative-AI: a interface é grátis, mas você paga as APIs dos modelos de vídeo\n⚠️ Quivr: mudou de foco, hoje é biblioteca para programadores\n✅ LocalAI: substituto local da API da OpenAI\n✅ OpenBB: plataforma de pesquisa financeira, mas vários dados exigem fontes pagas\n❌ Coqui TTS: o repositório original não é atualizado desde agosto de 2024 (a empresa fechou); o fork ativo é idiap/coqui-ai-TTS\n✅ Upscayl: melhora imagens offline\n✅ Fabric: fluxos de IA no terminal\n\nLinks:\nhttps://github.com/virattt/ai-hedge-fund\nhttps://github.com/ScrapeGraphAI/Scrapegraph-ai\nhttps://github.com/Zackriya-Solutions/meetily\nhttps://github.com/Anil-matcha/Open-Generative-AI\nhttps://github.com/QuivrHQ/quivr\nhttps://github.com/mudler/LocalAI\nhttps://github.com/OpenBB-finance/OpenBB\nhttps://github.com/idiap/coqui-ai-TTS\nhttps://github.com/upscayl/upscayl\nhttps://github.com/danielmiessler/Fabric\n\n#IA #OpenSource #GitHub #FerramentasGratis #InteligenciaArtificial #Tecnologia #BrasilDigital #Shorts",
+  "tags": [
+    "ferramentas de ia gratis",
+    "github",
+    "open source",
+    "ia gratis",
+    "upscayl",
+    "localai",
+    "meetily",
+    "inteligencia artificial",
+    "tecnologia",
+    "shorts"
+  ],
+  "source": "GitHub (verificação direta dos repositórios)",
+  "source_link": "https://github.com/upscayl/upscayl",
+  "thumb_text": "IA GRÁTIS: É VERDADE?",
+  "badge": "VERIFICAMOS",
+  "image_prompt": "A glowing treasure chest opening on a dark desk, spilling holographic app windows and code symbols, neon green and blue light, futuristic hacker workspace, cinematic dramatic lighting, no text, no logos, no people"
+}
