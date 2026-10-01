@@ -1,0 +1,54 @@
+name: Alerta Telegram
+
+# Avisa no Telegram quando um bot deste repositório falha.
+# Segredos: TELEGRAM_BOT_TOKEN e TELEGRAM_CHAT_ID (mesmo bot do flip-scout).
+on:
+  workflow_run:
+    workflows: ["Brasil Digital - Postar Short", "Brasil Digital - Publicar vídeo pronto", "Brasil Digital - Video Longo"]
+    types: [completed]
+  workflow_dispatch:  # teste manual: manda uma mensagem de teste
+
+permissions:
+  actions: read
+
+jobs:
+  avisar:
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      github.event.workflow_run.conclusion == 'failure' ||
+      github.event.workflow_run.conclusion == 'timed_out'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Avisar no Telegram
+        env:
+          TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          CHAT: ${{ secrets.TELEGRAM_CHAT_ID }}
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          NOME: ${{ github.event.workflow_run.name }}
+          RESULTADO: ${{ github.event.workflow_run.conclusion }}
+          EVENTO: ${{ github.event.workflow_run.event }}
+          RUN_ID: ${{ github.event.workflow_run.id }}
+          LINK: ${{ github.event.workflow_run.html_url }}
+        run: |
+          hora="$(TZ=America/New_York date '+%d/%m %H:%M') (Boston)"
+          if [ "$GITHUB_EVENT_NAME" = "workflow_dispatch" ]; then
+            texto="✅ Teste do alerta: ${REPO}
+          Se um bot deste repositório falhar, o aviso chega aqui.
+          ${hora}"
+          else
+            passo=$(gh api "repos/${REPO}/actions/runs/${RUN_ID}/jobs" \
+              -q '[.jobs[].steps[]? | select(.conclusion=="failure") | .name] | join(", ")' 2>/dev/null || true)
+            [ "$RESULTADO" = "timed_out" ] && motivo="passou do tempo limite" || motivo="falhou"
+            texto="🚨 Bot ${motivo}
+          ${NOME}
+          Repositório: ${REPO}
+          Etapa: ${passo:-não identificada}
+          Disparo: ${EVENTO} · ${hora}
+          ${LINK}"
+          fi
+          curl -sS --fail -o /dev/null -X POST "https://api.telegram.org/bot${TOKEN}/sendMessage" \
+            --data-urlencode "chat_id=${CHAT}" \
+            --data-urlencode "text=${texto}" \
+            -d disable_web_page_preview=true
