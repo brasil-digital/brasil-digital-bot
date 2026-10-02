@@ -34,6 +34,7 @@ Vídeo longo: `src/longform.py` + `longform_writer.py` (roteiro a partir do text
 - O workflow commita `posted_links.json` de volta: **sempre `git pull --rebase` antes de dar push**.
 - Se o push final do workflow falhar (instabilidade do GitHub), o vídeo SAI publicado; só o histórico se perde → adicionar o link à mão em `posted_links.json`.
 - Workflow novo recém-criado às vezes dá 404 no `gh workflow run` — fazer mais um push trivial.
+- Haiku às vezes devolve JSON inválido no roteiro do Short — `content_generator.py` tenta 3x antes de falhar.
 - Sonnet devolve bloco de "thinking" antes do texto: pegar o bloco `type == "text"`.
 - Não publicar clipe alheio cru (risco de strike / conteúdo reutilizado) — sempre transformar com análise. Só repostar com autorização do autor e crédito.
 - Evitar política partidária/eleitoral.
