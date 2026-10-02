@@ -89,18 +89,26 @@ Responda APENAS com JSON válido, sem markdown, seguindo exatamente este formato
   "image_prompt": "descrição EM INGLÊS de uma cena fotográfica dramática que ilustre o tema pra capa (1-2 frases): pessoa comum anônima com emoção forte (surpresa, medo, alegria) ou objeto em destaque, luz de cinema. PROIBIDO: texto, logos, marcas, pessoas reais/famosas/executivos."
 }}"""
 
-    response = client.messages.create(
-        model="claude-haiku-4-5-20251001",
-        max_tokens=2000,
-        messages=[{"role": "user", "content": prompt}],
-    )
+    # O Haiku às vezes devolve JSON malformado (vírgula sobrando, aspas) — tenta de novo
+    for tentativa in range(3):
+        response = client.messages.create(
+            model="claude-haiku-4-5-20251001",
+            max_tokens=2000,
+            messages=[{"role": "user", "content": prompt}],
+        )
 
-    text = response.content[0].text.strip()
-    if text.startswith("```"):
-        text = text.split("```")[1]
-        if text.startswith("json"):
-            text = text[4:]
-    content = json.loads(text.strip())
+        text = response.content[0].text.strip()
+        if text.startswith("```"):
+            text = text.split("```")[1]
+            if text.startswith("json"):
+                text = text[4:]
+        try:
+            content = json.loads(text.strip())
+            break
+        except json.JSONDecodeError as e:
+            print(f"   ⚠️ JSON inválido (tentativa {tentativa + 1}/3): {e}")
+            if tentativa == 2:
+                raise
 
     content["source"] = article["source"]
     content["source_link"] = article["link"]
