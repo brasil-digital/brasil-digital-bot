@@ -4,7 +4,7 @@ name: Alerta Telegram
 # Segredos: TELEGRAM_BOT_TOKEN e TELEGRAM_CHAT_ID (mesmo bot do flip-scout).
 on:
   workflow_run:
-    workflows: ["Brasil Digital - Postar Short", "Brasil Digital - Publicar vídeo pronto", "Brasil Digital - Video Longo"]
+    workflows: ["Brasil Digital - Postar Short", "Brasil Digital - Publicar vídeo pronto", "Brasil Digital - Video Longo", "Bom Dia Brasil - Teste Telegram"]
     types: [completed]
   workflow_dispatch:  # teste manual: manda uma mensagem de teste
 

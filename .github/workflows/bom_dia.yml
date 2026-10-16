@@ -1,0 +1,33 @@
+name: Bom Dia Brasil - Teste Telegram
+
+# TESTE INTERNO do "Bom dia, Brasil" (app Fala Brasil): gera o resumo diário e manda SÓ para o
+# Ronny no Telegram. Não publica nada no YouTube nem toca no app/Firebase.
+# 12:00 UTC = 8h em Boston no horário de verão (EDT). Depois de 1/nov (EST) vira 7h — trocar p/ 13:00.
+on:
+  schedule:
+    - cron: '0 12 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  bom-dia:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Instalar dependências
+        run: pip install anthropic feedparser requests
+
+      - name: Gerar e enviar
+        run: python src/bom_dia.py
+        env:
+          ANTHROPIC_API_KEY:  ${{ secrets.ANTHROPIC_API_KEY }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID:   ${{ secrets.TELEGRAM_CHAT_ID }}
