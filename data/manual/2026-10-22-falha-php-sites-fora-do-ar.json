@@ -1,0 +1,45 @@
+{
+  "category": "ciberseguranca",
+  "series": "golpes",
+  "subject": "Duas falhas críticas no PHP (PHP2Shell) fazem governos e empresas tirarem sites do ar",
+  "hook": "Governos do mundo inteiro tiraram sites do ar. E não foi ataque hacker. Ainda.",
+  "slides": [
+    {
+      "text": "Governos e empresas tiraram sites do ar por precaução"
+    },
+    {
+      "text": "Motivo: 2 falhas graves no PHP, nota 9,2 de 10"
+    },
+    {
+      "text": "Hacker pode controlar o servidor sem senha"
+    },
+    {
+      "text": "EUA e Europa: corrija ou tire o site do ar"
+    },
+    {
+      "text": "A correção já saiu. Quem age é o dono do site"
+    },
+    {
+      "text": "Pediram pra 'atualizar seus dados' por causa disso? É GOLPE\nBrasil Digital"
+    }
+  ],
+  "narration_script": "Governos do mundo inteiro tiraram sites do ar. E não foi ataque hacker. Ainda. Descobriram duas falhas graves no PHP, a linguagem que roda boa parte dos sites da internet. Com elas, um hacker pode controlar o servidor sem precisar de senha. Agências de segurança dos Estados Unidos e da Europa mandaram: ou corrige, ou tira do ar. A correção já saiu, e quem precisa agir são os donos dos sites. O seu risco é outro: golpe. Mensagem pedindo pra atualizar seus dados por causa dessa falha? É golpe. Segue o Brasil Digital.",
+  "youtube_title": "Governos tiraram sites do ar: falha grave no PHP 🚨",
+  "youtube_description": "Duas falhas críticas no PHP (CVE-2026-109618 e CVE-2026-109619, nota 9,2 de 10), apelidadas de PHP2Shell, permitem executar código remotamente em servidores sem a correção. Governos do Canadá e da Europa e empresas como a Nintendo tiraram sites do ar por precaução, e agências de segurança dos EUA e da União Europeia recomendaram corrigir ou desligar os sites afetados. A Cloudflare relatou as primeiras tentativas de ataque.\n\nA correção já saiu (PHP 8.2.35, 8.3.36, 8.4.27 e 8.5.12). Para você, usuário comum, não há nada para instalar: o cuidado é com golpes que aproveitam a notícia. Banco e governo não pedem para \"atualizar dados\" por link.\n\nFontes:\nCNBC: https://www.cnbc.com/2026/10/22/php2shell-vulnerability-what-is-it-and-is-your-data-at-risk.html\nThe Record: https://therecord.media/php-script-vulnerabilities-warnings\nMalwarebytes: https://www.malwarebytes.com/blog/bugs/2026/10/php2shell-why-websites-are-going-offline-for-emergency-security-updates\nAviso oficial do PHP: https://www.php.net/archive/2026.php\n\n#Seguranca #Golpe #PHP #CiberSeguranca #Tecnologia #BrasilDigital #Shorts",
+  "tags": [
+    "falha php",
+    "php2shell",
+    "sites fora do ar",
+    "seguranca digital",
+    "golpe",
+    "hacker",
+    "ciberseguranca",
+    "tecnologia",
+    "shorts"
+  ],
+  "source": "CNBC / The Record / Malwarebytes / PHP.net",
+  "source_link": "https://www.cnbc.com/2026/10/22/php2shell-vulnerability-what-is-it-and-is-your-data-at-risk.html",
+  "thumb_text": "SITES FORA DO AR",
+  "badge": "ALERTA",
+  "image_prompt": "Rows of server racks in a dark data center with red warning lights flashing, a few screens showing a broken padlock icon, cinematic dramatic lighting, tense atmosphere, no text, no logos, no people"
+}
