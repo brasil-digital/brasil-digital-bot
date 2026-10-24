@@ -15,6 +15,15 @@ LOGO_PATH = os.path.join(os.path.dirname(__file__), "..", "assets", "logo.png")
 QUEUE_DIR = os.path.join(os.path.dirname(__file__), "..", "data", "fila")
 MANUAL_DIR = os.path.join(os.path.dirname(__file__), "..", "data", "manual")
 COVER_PATH = "/tmp/bd_cover.jpg"
+APP_LINE = "📱 Baixe o app Fala Brasil (iPhone e Android): https://www.falabrasil.digital/baixar/?src=youtube"
+
+
+def _with_app_line(content: dict) -> dict:
+    """Acrescenta o link único de download do app no fim da descrição (uma vez só)."""
+    desc = content.get("youtube_description", "")
+    if "falabrasil.digital/baixar" not in desc:
+        content["youtube_description"] = f"{desc}\n\n{APP_LINE}".strip()
+    return content
 
 
 def _make_cover(content: dict) -> None:
@@ -63,7 +72,7 @@ def _publish_manual(path: str):
         video_path = create_video(content, "/tmp/bd_video.mp4", logo_path=logo, audio_path=audio_path)
 
     print("\n📤 Publicando no YouTube...")
-    result = upload_video(video_path, content)
+    result = upload_video(video_path, _with_app_line(content))
     save_used_link(content["source_link"])
 
     print("\n🎉 Short publicado!")
@@ -140,7 +149,7 @@ def main():
         video_path = create_video(content, "/tmp/bd_video.mp4", logo_path=logo, audio_path=audio_path)
 
         print("\n📤 Publicando no YouTube...")
-        result = upload_video(video_path, content)
+        result = upload_video(video_path, _with_app_line(content))
 
         save_used_link(article["link"])
 

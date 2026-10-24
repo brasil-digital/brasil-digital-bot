@@ -25,7 +25,7 @@ from youtube_uploader import upload_video
 ROOT = os.path.join(os.path.dirname(__file__), "..")
 HISTORY_PATH = os.path.join(ROOT, "data", "longform_history.json")
 MAX_AGE_HOURS = 72  # 3 vídeos por semana: janela entre um e outro
-APP_LINE = "📱 Baixe o app Fala Brasil: https://falabrasil.digital"
+APP_LINE = "📱 Baixe o app Fala Brasil (iPhone e Android): https://www.falabrasil.digital/baixar/?src=youtube"
 
 SCENE_STYLE = (
     "Horizontal 16:9 photorealistic cinematic news b-roll image, dramatic lighting, rich detail, "
