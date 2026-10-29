@@ -11,7 +11,7 @@ GitHub Actions (nada roda no PC). Branch padrão: **`master`**.
 | Workflow | Quando | O que faz |
 |---|---|---|
 | `postar.yml` (Brasil Digital - Postar Short) | 9h e 21h UTC | Short automático a partir do RSS |
-| idem, cron `0 16 * * *` com `FILA=1` | 12h Boston | publica o próximo JSON de `data/fila/` (ordem alfabética) e move p/ `data/manual/`; fila vazia = não posta |
+| idem, cron `0 16 * * *` com `FILA=1` | 12h Boston | publica o próximo JSON de `data/fila/` (ordem alfabética) e move p/ `data/manual/`; fila vazia = não posta. Nome começando com `AAAA-MM-DD` só sai a partir desse dia (fuso de Boston) — usado pela série "Dados do Brasil" (vídeos prontos em `data/videos/`, gerados em `Projetos\serie-dados-brasil`) |
 | `video_longo.yml` | seg/qua/sex 15h UTC | vídeo longo 16:9 (~3,5–4 min) |
 | `upload_manual.yml` | manual | publica vídeo PRONTO vindo de um GitHub Release |
 | `alerta.yml` | quando qualquer um acima falha | avisa o Ronny no Telegram |

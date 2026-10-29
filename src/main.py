@@ -1,7 +1,10 @@
 import json
 import os
+import re
 import sys
 import traceback
+from datetime import datetime
+from zoneinfo import ZoneInfo
 
 from news_fetcher import fetch_candidates, pick_unused
 from history import load_used_links, save_used_link
@@ -88,7 +91,12 @@ def _publish_next_from_queue():
     """
     used = load_used_links()
     queue = sorted(f for f in os.listdir(QUEUE_DIR) if f.endswith(".json")) if os.path.isdir(QUEUE_DIR) else []
+    # Arquivo com data no começo do nome (AAAA-MM-DD-...) só sai a partir desse dia (fuso de Boston).
+    hoje = datetime.now(ZoneInfo("America/New_York")).strftime("%Y-%m-%d")
     for name in queue:
+        if re.match(r"\d{4}-\d{2}-\d{2}", name) and name[:10] > hoje:
+            print(f"⏳ {name} está agendado para {name[:10]} — esperando.")
+            continue
         path = os.path.join(QUEUE_DIR, name)
         with open(path, encoding="utf-8") as f:
             link = json.load(f).get("source_link")
