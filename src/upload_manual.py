@@ -1,7 +1,7 @@
 """Publica um vídeo pronto (feito fora do bot) no canal Brasil Digital.
 
 Os arquivos vêm de um release do GitHub (vídeo grande não cabe no repositório):
-    video.mp4, thumb.jpg, meta.json
+    video.mp4, thumb.jpg, meta.json (e, opcional, legenda.srt)
 meta.json: {"title", "description", "tags": [...], "categoryId", "privacyStatus",
             "containsSyntheticMedia": true/false}
 
@@ -54,6 +54,18 @@ def main(pasta):
             print("🖼️  Thumbnail aplicada")
         except Exception as e:
             print(f"⚠️  Thumbnail não aplicada: {e}")
+
+    legenda = os.path.join(pasta, "legenda.srt")
+    if os.path.exists(legenda):
+        try:
+            youtube.captions().insert(
+                part="snippet",
+                body={"snippet": {"videoId": video_id, "language": "pt-BR", "name": "Português", "isDraft": False}},
+                media_body=MediaFileUpload(legenda, mimetype="application/octet-stream"),
+            ).execute()
+            print("💬 Legenda (pt-BR) enviada")
+        except Exception as e:
+            print(f"⚠️  Legenda não enviada (subir à mão no YouTube Studio): {e}")
 
 
 if __name__ == "__main__":
