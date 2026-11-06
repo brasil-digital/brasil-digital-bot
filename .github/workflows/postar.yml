@@ -2,8 +2,9 @@ name: Brasil Digital - Postar Short
 
 on:
   schedule:
-    - cron: '0 9 * * *'   # 06h BRT (9h UTC)
-    - cron: '0 21 * * *'  # 18h BRT (21h UTC)
+    # 6/nov/2026: Shorts automáticos do RSS (9h e 21h UTC) PAUSADOS a pedido do Ronny — davam 25–50 views e 0 inscritos.
+    # Agora o canal posta só a fila (Alerta/Boato + Dados do Brasil). Para voltar, recolocar:
+    #   - cron: '0 9 * * *'   e   - cron: '0 21 * * *'
     - cron: '0 16 * * *'  # 12h Boston / 13h BRT — extra: próximo roteiro de data/fila/
   workflow_dispatch:
     inputs:
