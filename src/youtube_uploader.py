@@ -40,6 +40,8 @@ def upload_video(video_path, content):
         "status": {
             "privacyStatus": "public",
             "selfDeclaredMadeForKids": False,
+            # roteiro com "synthetic": true (ex.: narração com a voz clonada do Ronny) → declara conteúdo alterado/IA
+            "containsSyntheticMedia": bool(content.get("synthetic", False)),
         },
     }
 

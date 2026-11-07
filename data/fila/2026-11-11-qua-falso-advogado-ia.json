@@ -1,0 +1,30 @@
+{
+  "category": "seguranca",
+  "subject": "Golpe do falso advogado com IA",
+  "hook": "Seu advogado ligou por vídeo? Pode ser IA 🤖⚖️ O golpe do falso advogado",
+  "slides": [
+    {
+      "text": "Seu advogado ligou por vídeo? Pode ser IA 🤖⚖️ O golpe do falso advogado"
+    }
+  ],
+  "narration_script": "No golpe do falso advogado, criminosos usam dados reais do seu processo e inteligência artificial para imitar a voz e o rosto do advogado, e pedem um Pix de “taxa” ou “imposto” para liberar o dinheiro. A OAB alerta: nenhum advogado ou juiz pede pagamento por telefone ou mensagem. Desligue, ligue você para o escritório no número que já tinha e confira o processo no site do tribunal.",
+  "youtube_title": "Seu advogado ligou por vídeo? Pode ser IA 🤖⚖️ O golpe do falso advogado",
+  "youtube_description": "No golpe do falso advogado, criminosos usam dados reais do seu processo e inteligência artificial para imitar a voz e o rosto do advogado, e pedem um Pix de “taxa” ou “imposto” para liberar o dinheiro. A OAB alerta: nenhum advogado ou juiz pede pagamento por telefone ou mensagem. Desligue, ligue você para o escritório no número que já tinha e confira o processo no site do tribunal.\n\n📰 Fonte: OAB-SP, Agência Lupa e Jusbrasil — Cartilha nacional de enfrentamento ao golpe do falso advogado (2026)\nhttps://www.oabsp.org.br/jornaldaadvocacia/26-03-20-1205-oab-sp-lupa-e-jusbrasil-lancam-cartilha-nacional-de-enfrentamento-ao-golpe-do-falso-advogado\n\n🤖 É real ou é IA? Segue o Brasil Digital pra não cair na próxima!\n\nNarração com voz gerada por IA (voz do Ronny).\n\n#GolpeDoFalsoAdvogado #Deepfake #IA #BrasilDigital #Shorts",
+  "tags": [
+    "golpe do falso advogado",
+    "deepfake",
+    "inteligência artificial",
+    "golpe",
+    "OAB",
+    "é real ou é IA",
+    "golpe do pix",
+    "brasil digital",
+    "shorts"
+  ],
+  "source": "OAB-SP, Agência Lupa e Jusbrasil — Cartilha nacional de enfrentamento ao golpe do falso advogado (2026)",
+  "source_link": "semana2-2026-11-11-qua-falso-advogado-ia",
+  "series": "real-ou-ia",
+  "synthetic": true,
+  "video_file": "data/videos/2026-11-11-qua-falso-advogado-ia.mp4",
+  "cover_file": "data/videos/2026-11-11-qua-falso-advogado-ia.jpg"
+}

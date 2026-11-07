@@ -1,0 +1,30 @@
+{
+  "category": "seguranca",
+  "subject": "Devolução de dinheiro de golpe no Pix",
+  "hook": "Caiu no golpe do Pix? De cada R$ 100, só R$ 8,90 voltam 💸",
+  "slides": [
+    {
+      "text": "Caiu no golpe do Pix? De cada R$ 100, só R$ 8,90 voltam 💸"
+    }
+  ],
+  "narration_script": "De janeiro de 2022 a abril de 2026, golpistas levaram R$ 24,52 bilhões pelo Pix, e só R$ 2,2 bilhões (8,9%) voltaram às vítimas pelo MED, o Mecanismo Especial de Devolução. Foram 53 milhões de pedidos e 14,1 milhões aceitos; o motivo principal da recusa é o dinheiro já ter saído da conta do golpista. Caiu num golpe? Avise o banco na hora e peça o MED.",
+  "youtube_title": "Caiu no golpe do Pix? De cada R$ 100, só R$ 8,90 voltam 💸",
+  "youtube_description": "De janeiro de 2022 a abril de 2026, golpistas levaram R$ 24,52 bilhões pelo Pix, e só R$ 2,2 bilhões (8,9%) voltaram às vítimas pelo MED, o Mecanismo Especial de Devolução. Foram 53 milhões de pedidos e 14,1 milhões aceitos; o motivo principal da recusa é o dinheiro já ter saído da conta do golpista. Caiu num golpe? Avise o banco na hora e peça o MED.\n\n📰 Fonte: Banco Central do Brasil, dados do MED compilados pelo O POVO+ (24/jul/2026)\nhttps://mais.opovo.com.br/reportagens-especiais/2026/07/24/a-cada-rs-100-em-golpes-no-pix-instituicoes-devolvem-apenas-rs-890.html\n\n🚨 Um alerta de golpe por dia. Segue o Brasil Digital e não seja o próximo!\n\nNarração com voz gerada por IA (voz do Ronny).\n\n#Pix #GolpeDoPix #MED #DadosDoBrasil #BrasilDigital #Shorts",
+  "tags": [
+    "golpe do pix",
+    "pix",
+    "MED",
+    "devolução pix",
+    "banco central",
+    "golpe",
+    "dados do brasil",
+    "brasil digital",
+    "shorts"
+  ],
+  "source": "Banco Central do Brasil, dados do MED compilados pelo O POVO+ (24/jul/2026)",
+  "source_link": "semana2-2026-11-12-qui-pix-devolucao",
+  "series": "golpes",
+  "synthetic": true,
+  "video_file": "data/videos/2026-11-12-qui-pix-devolucao.mp4",
+  "cover_file": "data/videos/2026-11-12-qui-pix-devolucao.jpg"
+}

@@ -1,0 +1,30 @@
+{
+  "category": "meio-ambiente",
+  "subject": "Desmatamento na Amazônia (Prodes 2026)",
+  "hook": "Amazônia tem o MENOR desmatamento desde 1988 🌳 Os números do INPE",
+  "slides": [
+    {
+      "text": "Amazônia tem o MENOR desmatamento desde 1988 🌳 Os números do INPE"
+    }
+  ],
+  "narration_script": "Pela estimativa do Prodes 2026 (INPE), a Amazônia perdeu 3.335 km² de floresta entre agosto de 2025 e julho de 2026, o menor valor de toda a série, iniciada em 1988, e uma queda de 71% em quatro anos. O Pará concentra 33,9% (1.130 km²), seguido de Mato Grosso (849 km²) e Amazonas (525 km²). No Cerrado, a estimativa é de 5.516,69 km², a menor desde 2001.",
+  "youtube_title": "Amazônia tem o MENOR desmatamento desde 1988 🌳 Os números do INPE",
+  "youtube_description": "Pela estimativa do Prodes 2026 (INPE), a Amazônia perdeu 3.335 km² de floresta entre agosto de 2025 e julho de 2026, o menor valor de toda a série, iniciada em 1988, e uma queda de 71% em quatro anos. O Pará concentra 33,9% (1.130 km²), seguido de Mato Grosso (849 km²) e Amazonas (525 km²). No Cerrado, a estimativa é de 5.516,69 km², a menor desde 2001.\n\n📰 Fonte: INPE / Prodes 2026 — estimativa apresentada pelo MMA em 16/out/2026\nhttps://www.gov.br/mma/pt-br/noticias-defeso-eleitoral/apresentacao-coletiva-prodes-2026_inpe.pdf/\n\n📊 Série Dados do Brasil: todo dia um número do país explicado. Segue o Brasil Digital!\n\nNarração com voz gerada por IA (voz do Ronny).\n\n#Amazônia #Desmatamento #MeioAmbiente #DadosDoBrasil #BrasilDigital #Shorts",
+  "tags": [
+    "desmatamento",
+    "amazônia",
+    "prodes",
+    "INPE",
+    "cerrado",
+    "meio ambiente",
+    "dados do brasil",
+    "brasil digital",
+    "shorts"
+  ],
+  "source": "INPE / Prodes 2026 — estimativa apresentada pelo MMA em 16/out/2026",
+  "source_link": "semana2-2026-11-15-dom-desmatamento-menor",
+  "series": "novidades",
+  "synthetic": true,
+  "video_file": "data/videos/2026-11-15-dom-desmatamento-menor.mp4",
+  "cover_file": "data/videos/2026-11-15-dom-desmatamento-menor.jpg"
+}
