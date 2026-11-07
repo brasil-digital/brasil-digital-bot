@@ -1,8 +1,8 @@
 name: Brasil Digital - Video Longo
 
 on:
-  schedule:
-    - cron: '0 15 * * 1,3,5'   # seg/qua/sex 12h BRT (15h UTC)
+  # 6/nov/2026: vídeos longos AUTOMÁTICOS (voz onyx, seg/qua/sex) PAUSADOS — no lugar, 1 longo/semana com a voz do Ronny
+  # (disparo manual com roteiro pronto). Para voltar: schedule: - cron: '0 15 * * 1,3,5'
   workflow_dispatch:
     inputs:
       roteiro:
