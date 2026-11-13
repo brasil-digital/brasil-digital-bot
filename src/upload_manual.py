@@ -3,7 +3,8 @@
 Os arquivos vêm de um release do GitHub (vídeo grande não cabe no repositório):
     video.mp4, thumb.jpg, meta.json (e, opcional, legenda.srt)
 meta.json: {"title", "description", "tags": [...], "categoryId", "privacyStatus",
-            "containsSyntheticMedia": true/false}
+            "containsSyntheticMedia": true/false, "publishAt": "2026-11-13T23:00:00Z" (opcional: agenda;
+            o vídeo fica privado e o YouTube publica sozinho nesse horário UTC)}
 
     python src/upload_manual.py pasta_com_os_arquivos
 """
@@ -34,6 +35,9 @@ def main(pasta):
             "containsSyntheticMedia": bool(meta.get("containsSyntheticMedia", False)),
         },
     }
+    if meta.get("publishAt"):
+        body["status"]["privacyStatus"] = "private"
+        body["status"]["publishAt"] = meta["publishAt"]
     youtube = _get_client()
     media = MediaFileUpload(os.path.join(pasta, "video.mp4"), mimetype="video/mp4",
                             resumable=True, chunksize=8 * 1024 * 1024)
@@ -45,7 +49,8 @@ def main(pasta):
         if status:
             print(f"   Upload: {int(status.progress() * 100)}%")
     video_id = response["id"]
-    print(f"✅ Publicado: https://www.youtube.com/watch?v={video_id}")
+    quando = f" (agendado para {meta['publishAt']} UTC)" if meta.get("publishAt") else ""
+    print(f"✅ Publicado{quando}: https://www.youtube.com/watch?v={video_id}")
 
     thumb = os.path.join(pasta, "thumb.jpg")
     if os.path.exists(thumb):
